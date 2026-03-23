@@ -1,0 +1,205 @@
+/* Custom styles for Coding Battle Arena */
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+code, pre, .font-monospace {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+.card {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s;
+}
+
+.card:hover {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+textarea.font-monospace {
+  tab-size: 2;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.badge {
+  font-weight: 500;
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(0, 123, 255, 0.05);
+}
+
+.btn:focus {
+  box-shadow: none;
+}
+
+.navbar-brand {
+  font-weight: bold;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #86b7fe;
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
+}
+
+.spinner-border-sm {
+  width: 1rem;
+  height: 1rem;
+  border-width: 0.15em;
+}
+
+pre {
+  background-color: #f8f9fa;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  overflow-x: auto;
+  margin: 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.list-group-item-action {
+  cursor: pointer;
+}
+
+.alert {
+  border: none;
+}
+
+/* Countdown animation */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Ready button animation */
+.btn-success {
+  animation: none;
+}
+
+.btn-success:not(:disabled) {
+  animation: pulse 2s infinite;
+}
+
+/* Timer warning animation */
+.text-danger.fw-bold {
+  animation: pulse 1s infinite;
+}
+
+/* Card border animation for ready state */
+.card.border-success {
+  border-width: 2px !important;
+  animation: borderPulse 2s infinite;
+}
+
+@keyframes borderPulse {
+  0%, 100% {
+    border-color: #198754;
+    box-shadow: 0 0 0 0 rgba(25, 135, 84, 0.4);
+  }
+  50% {
+    border-color: #198754;
+    box-shadow: 0 0 0 4px rgba(25, 135, 84, 0.1);
+  }
+}
+
+/* Sticky header in problem card */
+.sticky-top {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* Battle status indicators */
+.badge.fs-6 {
+  font-size: 0.9rem !important;
+  padding: 0.5em 0.8em;
+}
+
+/* Chat box styling */
+.chat-message {
+  animation: slideIn 0.3s ease-out;
+}
+
+/* Code editor focus */
+textarea:focus {
+  outline: none;
+  box-shadow: inset 0 0 0 2px rgba(13, 110, 253, 0.25);
+}
+
+/* Loading overlay */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* Room code display */
+.display-3.font-monospace {
+  font-weight: bold;
+  color: #333;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .display-1 {
+    font-size: 4rem !important;
+  }
+
+  .display-3 {
+    font-size: 2rem !important;
+  }
+
+  .btn-lg {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+  }
+}
