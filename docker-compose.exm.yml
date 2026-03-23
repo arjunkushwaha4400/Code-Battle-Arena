@@ -1,0 +1,108 @@
+version: '3.8'
+
+services:
+  postgres-user:
+    image: postgres:16.4-alpine
+    container_name: arena-postgres-user
+    environment:
+      POSTGRES_DB: user_db
+      POSTGRES_USER: demo_user
+      POSTGRES_PASSWORD: demo_password
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_user_data:/var/lib/postgresql/data
+    networks:
+      - arena-network
+
+  postgres-battle:
+    image: postgres:16.4-alpine
+    container_name: arena-postgres-battle
+    environment:
+      POSTGRES_DB: battle_db
+      POSTGRES_USER: demo_user
+      POSTGRES_PASSWORD: demo_password
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres_battle_data:/var/lib/postgresql/data
+    networks:
+      - arena-network
+
+  keycloak-postgres:
+    image: postgres:16.4-alpine
+    container_name: arena-keycloak-postgres
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: demo_user
+      POSTGRES_PASSWORD: demo_password
+    volumes:
+      - keycloak_postgres_data:/var/lib/postgresql/data
+    networks:
+      - arena-network
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:25.0.6
+    container_name: arena-keycloak
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://keycloak-postgres:5432/keycloak
+      KC_DB_USERNAME: demo_user
+      KC_DB_PASSWORD: demo_password
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_HTTP_ENABLED: true
+    command: start-dev
+    ports:
+      - "8180:8080"
+    depends_on:
+      - keycloak-postgres
+    networks:
+      - arena-network
+
+  redis:
+    image: redis:7.4-alpine
+    container_name: arena-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    networks:
+      - arena-network
+
+  rabbitmq:
+    image: rabbitmq:3.13.7-management-alpine
+    container_name: arena-rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: demo_user
+      RABBITMQ_DEFAULT_PASS: demo_password
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - arena-network
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: arena-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    networks:
+      - arena-network
+
+networks:
+  arena-network:
+    driver: bridge
+
+volumes:
+  postgres_user_data:
+  postgres_battle_data:
+  keycloak_postgres_data:
+  redis_data:
+  rabbitmq_data:
+  ollama_data:

@@ -1,0 +1,47 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: ai-service
+
+  ai:
+    ollama:
+      base-url: http://localhost:11434
+      chat:
+        model: your_model_name   # e.g. llama3
+        options:
+          temperature: 0.7
+          num-predict: 1024
+          top-p: 0.9
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8180/realms/your-realm
+          jwk-set-uri: http://localhost:8180/realms/your-realm/protocol/openid-connect/certs
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      aiService:
+        slidingWindowSize: 5
+        failureRateThreshold: 50
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+logging:
+  level:
+    root: INFO
+    com.yourpackage.ai: DEBUG
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html

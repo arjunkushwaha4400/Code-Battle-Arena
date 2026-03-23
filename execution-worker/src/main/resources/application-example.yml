@@ -1,0 +1,37 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: execution-worker
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: your_rabbit_user
+    password: your_rabbit_password
+    listener:
+      simple:
+        prefetch: 1
+        concurrency: 2
+        max-concurrency: 5
+
+docker:
+  host: npipe:////./pipe/docker_engine
+
+execution:
+  work-dir: YOUR_WORK_DIR_PATH   # e.g. C:/arena-execution OR /tmp/arena-execution
+  container-memory: 268435456
+  container-cpu-quota: 50000
+  default-timeout-seconds: 5
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+logging:
+  level:
+    root: INFO
+    com.yourpackage.execution: DEBUG
