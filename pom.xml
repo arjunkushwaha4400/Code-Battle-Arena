@@ -42,7 +42,7 @@
 
         <!-- Database & Cache -->
         <postgresql.version>42.7.4</postgresql.version>
-        <flyway.version>10.18.0</flyway.version>
+
 
         <!-- Security -->
         <jjwt.version>0.12.6</jjwt.version>
@@ -93,17 +93,6 @@
                 <version>${postgresql.version}</version>
             </dependency>
 
-            <!-- Flyway -->
-            <dependency>
-                <groupId>org.flywaydb</groupId>
-                <artifactId>flyway-core</artifactId>
-                <version>${flyway.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.flywaydb</groupId>
-                <artifactId>flyway-database-postgresql</artifactId>
-                <version>${flyway.version}</version>
-            </dependency>
 
             <!-- Resilience4j -->
             <dependency>
